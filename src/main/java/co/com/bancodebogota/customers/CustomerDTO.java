@@ -4,10 +4,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import co.com.bancodebogota.transformations.ToFrontend;
-import co.com.bancodebogota.utils.MaskRemover;
-import co.com.bancodebogota.utils.MaskRemoverImpl;
 
-public class ConsultCustomerRespDTO {
+public class CustomerDTO {
 
 	private String firstName;
 	private String middleName;
@@ -218,14 +216,12 @@ public class ConsultCustomerRespDTO {
 	}
 
 	public Map<String, String> serialize() {
-		MaskRemover maskRemover = new MaskRemoverImpl();
+
 		HashMap<String, String> map = new HashMap<>();
 		map.put("firstName", ToFrontend.asName(getFirstName()));
 		map.put("middleName", ToFrontend.asName(getMiddleName()));
 		map.put("lastName", ToFrontend.asName(getLastName()));
 		map.put("secondLastName", ToFrontend.asName(getSecondLastName()));
-		map.put("birthDate", maskRemover.dateFromBackendToFront(getBirthDate()));
-		map.put("expeditionDate", maskRemover.dateFromBackendToFront(getExpeditionDate()));
 		map.put("expeditionCityId", getExpeditionCityId());
 		map.put("email", getEmail());
 		map.put("cellphone", getCellphone());

@@ -1,6 +1,6 @@
-package co.com.bancodebogota.blacklist.pojos;
+package co.com.bancodebogota.blacklist;
 
-public class BlacklistParticipanteRqDto {
+public class BlacklistRequestDTO {
 
 	private String documentNumber;
 
@@ -11,11 +11,11 @@ public class BlacklistParticipanteRqDto {
 	private String firstName;
 
 
-	public BlacklistParticipanteRqDto() {
+	public BlacklistRequestDTO() {
 		super();
 	}
 
-	public BlacklistParticipanteRqDto(String documentNumber, String surname, String secondSurname, String firstName) {
+	public BlacklistRequestDTO(String documentNumber, String surname, String secondSurname, String firstName) {
 		super();
 		this.documentNumber = documentNumber;
 		this.surname = surname;

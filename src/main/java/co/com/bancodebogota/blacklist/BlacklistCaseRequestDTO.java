@@ -1,9 +1,9 @@
-package co.com.bancodebogota.blacklist.pojos;
+package co.com.bancodebogota.blacklist;
 
 import javax.validation.constraints.NotNull;
 
 
-public class BlacklistRegCasoRqDto {
+public class BlacklistCaseRequestDTO {
 	
 	@NotNull
    private String firstName;
