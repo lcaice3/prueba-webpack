@@ -40,7 +40,7 @@ public class BlacklistServiceTests {
 		
 		when(restTemplate.getForObject(any(URI.class), eq(JsonNode.class)))
 			.thenReturn(new ObjectMapper().createObjectNode())
-			.thenThrow(new HttpServerErrorException(HttpStatus.CONFLICT));
+			.thenThrow(new HttpServerErrorException(HttpStatus.UNAUTHORIZED));
 		
 		boolean response = blacklistService.isInBlacklist(blacklistRequestDTO);
 		

@@ -1,4 +1,4 @@
-package co.com.bancodebogota.blacklist;
+package co.com.bancodebogota.customers;
 
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.eq;
@@ -17,6 +17,8 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.web.client.RestTemplate;
 
+import co.com.bancodebogota.blacklist.BlacklistRequestDTO;
+import co.com.bancodebogota.blacklist.BlacklistService;
 import co.com.bancodebogota.customers.CustomerDTO;
 import co.com.bancodebogota.customers.CustomerExistsResponseDTO;
 import co.com.bancodebogota.customers.CustomerService;
