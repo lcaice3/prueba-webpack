@@ -24,15 +24,15 @@ public class BlacklistService {
 	@Autowired 
 	private RestTemplate restTemplate;
 
-	public boolean isInBlacklist(BlacklistRequestDTO blacklistParticipanteRqDto) {
+	public boolean isInBlacklist(BlacklistRequestDTO blacklistRequestDTO) {
 		boolean clientInBlacklist = false;
 		
 		UriComponentsBuilder urlBuilder = UriComponentsBuilder.fromUriString(blacklistEndpoint)
 				.path(CONSULT_BLACKLIST_PATH)
-				.queryParam("documentNumber", blacklistParticipanteRqDto.getDocumentNumber())
-				.queryParam("firstName", blacklistParticipanteRqDto.getFirstName())
-				.queryParam("secondSurname", blacklistParticipanteRqDto.getSecondSurname())
-				.queryParam("surname", blacklistParticipanteRqDto.getSurname())
+				.queryParam("documentNumber", blacklistRequestDTO.getDocumentNumber())
+				.queryParam("firstName", blacklistRequestDTO.getFirstName())
+				.queryParam("secondSurname", blacklistRequestDTO.getSecondSurname())
+				.queryParam("surname", blacklistRequestDTO.getSurname())
 				.queryParam("activeLog", true);
 				
 		URI uri = urlBuilder.build().encode().toUri() ;
