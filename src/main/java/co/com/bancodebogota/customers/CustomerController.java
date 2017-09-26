@@ -22,4 +22,9 @@ public class CustomerController {
 			CustomerExistsResponseDTO response = customerService.checkUserExists(documentType, documentNumber);
 			return new ResponseEntity<CustomerExistsResponseDTO>(response, HttpStatus.OK);
 	}
+	
+	@GetMapping("/health")
+	public String health() {
+		return "OK";
+	}
 }
