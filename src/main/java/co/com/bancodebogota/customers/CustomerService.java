@@ -53,21 +53,21 @@ public class CustomerService {
 	private CustomerDTO getCustomerInfoFromBackend(String identityType, String identityNumber) {
 		
 		String url="";
-		try
-		{
-		UriComponentsBuilder urlBuilder = UriComponentsBuilder.fromUriString(customerEndpoint)
-			.path(CUSTOMER_INFO_PATH)
-			.queryParam("documentType", identityType)
-			.queryParam("documentNumber", identityNumber);
+		try {
+			UriComponentsBuilder urlBuilder = UriComponentsBuilder.fromUriString(customerEndpoint)
+				.path(CUSTOMER_INFO_PATH)
+				.queryParam("documentType", identityType)
+				.queryParam("documentNumber", identityNumber);
 			
-		URI uri = urlBuilder.build().encode().toUri() ;
+			URI uri = urlBuilder.build().encode().toUri() ;
 		
-		url =uri.getPath();
-		return restTemplate.getForObject(uri, CustomerDTO.class);
-		
-		}catch (Exception e) {
+			url = uri.getPath();
+			
+			return restTemplate.getForObject(uri, CustomerDTO.class);
+			
+		} catch (Exception e) {
 			System.out.println(e.getMessage()+ url );
-			return null;
+			throw e;
 		}
 	}
 }
