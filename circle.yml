@@ -46,7 +46,7 @@ jobs:
           command: |
             echo "Preparing release for QA..."
             #if [ "${CIRCLE_BRANCH}" == "" ]; then
-                      chmod 755 deploy.sh && ./deploy.sh LbrzOrchestrator adapters qa 1 orchestator "$(mvn org.apache.maven.plugins:maven-help-plugin:2.1.1:evaluate -Dexpression=project.version|grep -Ev '(^\[|Download\w+:)')"
+                      chmod 755 deploy.sh && ./deploy.sh orchestator adapters qa 1 orchestator "$(mvn org.apache.maven.plugins:maven-help-plugin:2.1.1:evaluate -Dexpression=project.version|grep -Ev '(^\[|Download\w+:)')"
             #fi
       - run:
           name: SONAR

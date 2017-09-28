@@ -8,11 +8,11 @@ CLUSTER_NAME=$2
 ENVIRONMENT=$3
 VERSION=$4
 
-SERVICE_NAME="$ENVIRONMENT-$APP_NAME-service"
-CLUSTER_NAME="bdb-$ENVIRONMENT-cluster"
+SERVICE_NAME="$ENVIRONMENT-incredibles-$APP_NAME-service"
+CLUSTER_NAME="bdb-$ENVIRONMENT-incredibles-cluster"
 BUILD_NUMBER=${CIRCLE_BUILD_NUM}
 IMAGE_TAG=${CIRCLE_SHA1}
-TASK_FAMILY="$ENVIRONMENT-$APP_NAME-task-family"
+TASK_FAMILY="$ENVIRONMENT-incredibles-$APP_NAME-task-family"
 AWS_ACCOUNT_ID=070073855891
 
 configure_aws_cli(){
@@ -23,7 +23,7 @@ configure_aws_cli(){
 
 push_ecr_image(){
     eval $(aws ecr get-login --region us-east-1 --registry-ids 070073855891)
-    --registry-ids aws_account_id
+    #--registry-ids aws_account_id
     
     docker build -t $ENVIRONMENT-$APP_NAME .
     
