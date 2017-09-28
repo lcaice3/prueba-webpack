@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import co.com.bancodebogota.simulator.dto.SimulatorParamsDTO;
 import co.com.bancodebogota.simulator.dto.SimulatorRequestDTO;
 import co.com.bancodebogota.simulator.dto.SimulatorResponseDTO;
 
@@ -19,9 +20,15 @@ public class SimulatorController {
 	@Autowired
 	private SimulatorService simulatorService;
  
-	@GetMapping("/simulator/simulation-data")
+	@GetMapping("/simulator/simulate-loan")
 	public ResponseEntity<SimulatorResponseDTO> getSimulationData(@RequestParam SimulatorRequestDTO request) {
 		SimulatorResponseDTO response = simulatorService.getSimulatorData(request);
 		return new ResponseEntity<SimulatorResponseDTO>(response, HttpStatus.OK);
+	}
+	
+	@GetMapping("/simulator/simulation-params")
+	public ResponseEntity<SimulatorParamsDTO> getSimulationData() {
+		SimulatorParamsDTO response = simulatorService.getSimulatorParams();
+		return new ResponseEntity<SimulatorParamsDTO>(response, HttpStatus.OK);
 	}
 }
