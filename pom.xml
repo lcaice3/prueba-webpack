@@ -5,7 +5,7 @@
 
 	<groupId>co.com.bancodebogota</groupId>
 	<artifactId>LbrzOrchestator</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.1</version>
 	<packaging>jar</packaging>
 
 	<name>LbrzOrchestator</name>
@@ -59,7 +59,7 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
 		</plugins>
-		<finalName>LbrzOrchestator</finalName>
+		<finalName>app</finalName>
 	</build>
 
 

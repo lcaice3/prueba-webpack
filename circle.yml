@@ -1,0 +1,58 @@
+version: 2
+
+jobs:
+  build:
+    working_directory: ~/circleci-orchestrator
+    machine:
+      environment:
+        SPRING_PROFILES_ACTIVE: test
+      timezone:
+        America/Bogota
+      java:
+        version: openjdk8
+      services:
+        - docker
+    general:
+      artifacts:
+        - "target/app.jar"
+    steps:
+      - checkout
+      - run: cp settings.xml ~/.m2/settings.xml
+      - run: git config --global user.email circleci@circleci
+      - run: git config --global user.name CircleCI
+
+      - restore_cache:
+          key: circleci-orchestrator
+      - run: mvn clean install
+
+      - deploy:
+          name: Deploy Master
+          command: |
+            if [ "${CIRCLE_BRANCH}" == "master" ]; then
+                     if [[ `git log -1` =~ "[maven-release-plugin]" ]]; then
+                          echo "Ignoring release plugin generated version"
+                      else
+                          echo "Preparing release..."
+                          mvn -B release:prepare -Dmaven.test.skip=true -Dmaven.repo.local=/home/circleci/.m2/repository -s settings.xml
+                          chmod 755 deploy.sh && ./deploy.sh LbrzOrchestrator adapters staging 1 LbrzOrchestrator "$(mvn org.apache.maven.plugins:maven-help-plugin:2.1.1:evaluate -Dexpression=project.version|grep -Ev '(^\[|Download\w+:)')"
+                          chmod 755 deploy.sh && ./deploy.sh LbrzOrchestrator adapters prod 1 LbrzOrchestrator "$(mvn org.apache.maven.plugins:maven-help-plugin:2.1.1:evaluate -Dexpression=project.version|grep -Ev '(^\[|Download\w+:)')"
+                      fi              
+            else
+               echo "Not deployed into master!!"
+            fi
+      - deploy:
+          name: Deploy QA
+          command: |
+            #if [ "${CIRCLE_BRANCH}" == "" ]; then
+                      chmod 755 deploy.sh && ./deploy.sh LbrzOrchestrator adapters qa 1 LbrzOrchestrator "$(mvn org.apache.maven.plugins:maven-help-plugin:2.1.1:evaluate -Dexpression=project.version|grep -Ev '(^\[|Download\w+:)')"
+            #fi
+      - run:
+          name: SONAR
+          command: |
+            if [ "${CIRCLE_BRANCH}" == "master" ]; then
+                          mvn sonar:sonar -s settings_sonar.xml
+            fi             
+      - save_cache:
+          paths:
+            - ~/.m2
+          key: circleci-orchestrator
