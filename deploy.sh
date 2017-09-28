@@ -89,7 +89,7 @@ make_task_def(){
     TASK_TEMPLATE=$(aws ecs describe-task-definition --task-definition ${TASK_FAMILY} | jq -r .taskDefinition.containerDefinitions[0])
     echo "Template anterior: $TASK_TEMPLATE"
  
-    NEW_CONTAINER_DEFINITIONS=$(echo "$TASK_TEMPLATE" | jq ".image = \"%s.dkr.ecr.us-east-1.amazonaws.com/${ENVIRONMENT}-${APP_NAME}:%s\""  )
+    NEW_CONTAINER_DEFINITIONS=$(echo "$TASK_TEMPLATE" | jq ".image = \"%s.dkr.ecr.us-east-1.amazonaws.com/${ENVIRONMENT}-incredibles-orchestrator:%s\""  )
   
     echo "Template nuevo: $NEW_CONTAINER_DEFINITIONS"
 
