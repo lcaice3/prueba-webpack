@@ -30,14 +30,17 @@ push_ecr_image(){
     
     echo " build image $ENVIRONMENT-incredibles-$APP_NAME"
     
-    docker tag $ENVIRONMENT-incredibles-$APP_NAME $AWS_ACCOUNT_ID.dkr.ecr.us-east-1.amazonaws.com/$ENVIRONMENT-incredibles-$APP_NAME:$VERSION
+    docker tag $ENVIRONMENT-incredibles-$APP_NAME $AWS_ACCOUNT_ID.dkr.ecr.us-east-1.amazonaws.com/$ENVIRONMENT-incredibles-orchestrator:$VERSION
     
     echo " build tag $ENVIRONMENT-incredibles-$APP_NAME $AWS_ACCOUNT_ID.dkr.ecr.us-east-1.amazonaws.com/$ENVIRONMENT-incredibles-$APP_NAME:$VERSION"
     
     eval $(aws ecr get-login --region us-east-1)
     
-    docker push $AWS_ACCOUNT_ID.dkr.ecr.us-east-1.amazonaws.com/$ENVIRONMENT-incredibles-orchestrator:$VERSION
 
+    
+    docker push $AWS_ACCOUNT_ID.dkr.ecr.us-east-1.amazonaws.com/$ENVIRONMENT-incredibles-orchestrator:$VERSION
+    
+    
 }
 
 deploy_cluster(){
