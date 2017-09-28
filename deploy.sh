@@ -22,7 +22,7 @@ configure_aws_cli(){
 }
 
 push_ecr_image(){
-    eval $(aws ecr get-login --region us-east-1 --registry-ids 070073855891)
+    eval $(aws ecr get-login --region us-east-1 --registry-ids 628007708529)
     #--registry-ids aws_account_id
     
     docker build -t $ENVIRONMENT-$APP_NAME .
