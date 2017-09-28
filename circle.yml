@@ -52,7 +52,7 @@ jobs:
           name: SONAR
           command: |
            # if [ "${CIRCLE_BRANCH}" == "master" ]; then
-                          mvn sonar:sonar -s settings_sonar.xml
+           #               mvn sonar:sonar -s settings_sonar.xml
            # fi             
       - save_cache:
           paths:
