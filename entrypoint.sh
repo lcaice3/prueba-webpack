@@ -1,17 +1,21 @@
 #!/bin/bash
 
 # Check that the environment variable has been set correctly
-if [ -z "$SECRETS_BUCKET_NAME" ]; then
-  echo >&2 'error: missing SECRETS_BUCKET_NAME environment variable'
-  exit 1
-fi
+# if [ -z "$SECRETS_BUCKET_NAME" ]; then
+#  echo >&2 'error: missing SECRETS_BUCKET_NAME environment variable'
+#  exit 1
+# fi
 
+echo 'secrets files init'
 if  [ ${BDB_SECRETS_FILES_COUNT} != "0" ]; then
 
 	AWS_ACCESS_KEY_ID=$BDB_AWS_ACCESS_KEY_ID
 	AWS_SECRET_ACCESS_KEY=$BDB_AWS_SECRET_ACCESS_KEY
 	AWS_ACCOUNT_ID=$BDB_AWS_ACCOUNT_ID
-
+    
+    
+    echo 'secrets files'
+    
 	aws configure set default.region us-east-1
 	aws configure set default.output json
 

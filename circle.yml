@@ -2,7 +2,7 @@ version: 2
 
 jobs:
   build:
-    working_directory: ~/circleci-orchestrator
+    working_directory: ~/circleci-LbrzOrchestator
     machine:
       environment:
         SPRING_PROFILES_ACTIVE: test
@@ -36,6 +36,7 @@ jobs:
                           mvn -B release:prepare -Dmaven.test.skip=true -Dmaven.repo.local=/home/circleci/.m2/repository -s settings.xml
                           chmod 755 deploy.sh && ./deploy.sh LbrzOrchestrator adapters staging 1 LbrzOrchestrator "$(mvn org.apache.maven.plugins:maven-help-plugin:2.1.1:evaluate -Dexpression=project.version|grep -Ev '(^\[|Download\w+:)')"
                           chmod 755 deploy.sh && ./deploy.sh LbrzOrchestrator adapters prod 1 LbrzOrchestrator "$(mvn org.apache.maven.plugins:maven-help-plugin:2.1.1:evaluate -Dexpression=project.version|grep -Ev '(^\[|Download\w+:)')"
+                          
                       fi              
             else
                echo "Not deployed into master!!"
@@ -43,15 +44,16 @@ jobs:
       - deploy:
           name: Deploy QA
           command: |
+            echo "Preparing release for QA..."
             #if [ "${CIRCLE_BRANCH}" == "" ]; then
                       chmod 755 deploy.sh && ./deploy.sh LbrzOrchestrator adapters qa 1 LbrzOrchestrator "$(mvn org.apache.maven.plugins:maven-help-plugin:2.1.1:evaluate -Dexpression=project.version|grep -Ev '(^\[|Download\w+:)')"
             #fi
       - run:
           name: SONAR
           command: |
-            if [ "${CIRCLE_BRANCH}" == "master" ]; then
+           # if [ "${CIRCLE_BRANCH}" == "master" ]; then
                           mvn sonar:sonar -s settings_sonar.xml
-            fi             
+           # fi             
       - save_cache:
           paths:
             - ~/.m2
