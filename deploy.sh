@@ -7,12 +7,13 @@ APP_NAME=$1
 CLUSTER_NAME=$2
 ENVIRONMENT=$3
 VERSION=$4
+ALIAS=$5
 
 SERVICE_NAME="$ENVIRONMENT-incredibles-$APP_NAME-service"
 CLUSTER_NAME="bdb-$ENVIRONMENT-incredibles-cluster"
 BUILD_NUMBER=${CIRCLE_BUILD_NUM}
 IMAGE_TAG=${CIRCLE_SHA1}
-TASK_FAMILY="$ENVIRONMENT-incredibles-$APP_NAME-task-family"
+TASK_FAMILY="$ENVIRONMENT-incredibles-orchestrator-task-family"
 AWS_ACCOUNT_ID=070073855891
 
 configure_aws_cli(){
@@ -79,8 +80,10 @@ deploy_cluster(){
 }
 
 make_task_def(){
+    
     TASK_ALL=$(aws ecs describe-task-definition --task-definition ${TASK_FAMILY})
-    echo "Task All: $TASK_ALL"
+    
+    echo "Task All: $TASK_ALL  - TaskFamily ${TASK_FAMILY}  "
 
 
     TASK_TEMPLATE=$(aws ecs describe-task-definition --task-definition ${TASK_FAMILY} | jq -r .taskDefinition.containerDefinitions[0])
