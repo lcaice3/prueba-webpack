@@ -9,7 +9,7 @@ ENVIRONMENT=$3
 VERSION=$4
 ALIAS=$5
 
-SERVICE_NAME="$ENVIRONMENT-incredibles-$APP_NAME-service"
+SERVICE_NAME="$ENVIRONMENT-incredibles-orchestrator-service"
 CLUSTER_NAME="bdb-$ENVIRONMENT-incredibles-cluster"
 BUILD_NUMBER=${CIRCLE_BUILD_NUM}
 IMAGE_TAG=${CIRCLE_SHA1}
@@ -49,7 +49,8 @@ deploy_cluster(){
     make_task_def
     register_task_definition
     if  [ ${ENVIRONMENT} != "prod" ]; then
-        echo ${CLUSTER_NAME}
+        
+        echo "${CLUSTER_NAME}
         echo ${SERVICE_NAME}
 
         DESIRED_COUNT=$(aws ecs describe-services --cluster ${CLUSTER_NAME} --services ${SERVICE_NAME} | egrep "desiredCount" | head -1 | tr "/" " " | awk '{print $2}' | sed 's/,$//')
@@ -60,6 +61,7 @@ deploy_cluster(){
 
 
         echo " enviroment: $ENVIRONMENT"
+        
         echo " services name: $SERVICE_NAME"
         tasks=$(aws --region us-east-1 ecs list-tasks --cluster $CLUSTER_NAME --family ${TASK_FAMILY} | jq -r '.taskArns | map(.[40:]) | reduce .[] as $item (""; . + $item + " ")')
         for task in $tasks; do
