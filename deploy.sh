@@ -25,7 +25,7 @@ push_ecr_image(){
     eval $(aws ecr get-login --region us-east-1 --registry-ids 628007708529)
     #--registry-ids aws_account_id
     
-    docker build -t $ENVIRONMENT-$APP_NAME .
+    docker build -t $ENVIRONMENT-incredibles-$APP_NAME .
     
     
     echo " build image $ENVIRONMENT-incredibles-$APP_NAME"
