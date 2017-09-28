@@ -42,6 +42,7 @@ push_ecr_image(){
     
 }
 
+
 deploy_cluster(){
 
     make_task_def
