@@ -49,6 +49,9 @@ deploy_cluster(){
         fi
         #DESIRED_COUNT="1"
 
+
+        echo " enviroment: $ENVIRONMENT"
+        echo " services name: $SERVICE_NAME"
         tasks=$(aws --region us-east-1 ecs list-tasks --cluster $CLUSTER_NAME --family ${TASK_FAMILY} | jq -r '.taskArns | map(.[40:]) | reduce .[] as $item (""; . + $item + " ")')
         for task in $tasks; do
             aws --region us-east-1 ecs stop-task --task $task --cluster $CLUSTER_NAME
