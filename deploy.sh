@@ -7,13 +7,13 @@ APP_NAME=$1
 CLUSTER_NAME=$2
 ENVIRONMENT=$3
 VERSION=$4
-ALIAS=$5
 
-SERVICE_NAME="$ENVIRONMENT-incredibles-orchestrator-service"
+
+SERVICE_NAME="$ENVIRONMENT-incredibles-$APP_NAME-service"
 CLUSTER_NAME="bdb-$ENVIRONMENT-incredibles-cluster"
 BUILD_NUMBER=${CIRCLE_BUILD_NUM}
 IMAGE_TAG=${CIRCLE_SHA1}
-TASK_FAMILY="$ENVIRONMENT-incredibles-orchestrator-task-family"
+TASK_FAMILY="$ENVIRONMENT-incredibles-$APP_NAME-task-family"
 AWS_ACCOUNT_ID=070073855891
 
 configure_aws_cli(){
@@ -31,15 +31,13 @@ push_ecr_image(){
     
     echo " build image $ENVIRONMENT-incredibles-$APP_NAME"
     
-    docker tag $ENVIRONMENT-incredibles-$APP_NAME $AWS_ACCOUNT_ID.dkr.ecr.us-east-1.amazonaws.com/$ENVIRONMENT-incredibles-orchestrator:$VERSION
+    docker tag $ENVIRONMENT-incredibles-$APP_NAME $AWS_ACCOUNT_ID.dkr.ecr.us-east-1.amazonaws.com/$ENVIRONMENT-incredibles-$APP_NAME:$VERSION
     
     echo " build tag $ENVIRONMENT-incredibles-$APP_NAME $AWS_ACCOUNT_ID.dkr.ecr.us-east-1.amazonaws.com/$ENVIRONMENT-incredibles-$APP_NAME:$VERSION"
     
     eval $(aws ecr get-login --region us-east-1)
     
-
-    
-    docker push $AWS_ACCOUNT_ID.dkr.ecr.us-east-1.amazonaws.com/$ENVIRONMENT-incredibles-orchestrator:$VERSION
+    docker push $AWS_ACCOUNT_ID.dkr.ecr.us-east-1.amazonaws.com/$ENVIRONMENT-incredibles-$APP_NAME:$VERSION
     
     
 }

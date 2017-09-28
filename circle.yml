@@ -34,8 +34,8 @@ jobs:
                       else
                           echo "Preparing release..."
                           mvn -B release:prepare -Dmaven.test.skip=true -Dmaven.repo.local=/home/circleci/.m2/repository -s settings.xml
-                          chmod 755 deploy.sh && ./deploy.sh LbrzOrchestator adapters staging 1 LbrzOrchestator  Orchestrator "$(mvn org.apache.maven.plugins:maven-help-plugin:2.1.1:evaluate -Dexpression=project.version|grep -Ev '(^\[|Download\w+:)')"
-                          chmod 755 deploy.sh && ./deploy.sh LbrzOrchestator adapters prod 1 LbrzOrchestator Orchestrator "$(mvn org.apache.maven.plugins:maven-help-plugin:2.1.1:evaluate -Dexpression=project.version|grep -Ev '(^\[|Download\w+:)')"
+                          chmod 755 deploy.sh && ./deploy.sh orchestrator adapters staging 1 LbrzOrchestator   "$(mvn org.apache.maven.plugins:maven-help-plugin:2.1.1:evaluate -Dexpression=project.version|grep -Ev '(^\[|Download\w+:)')"
+                          chmod 755 deploy.sh && ./deploy.sh orchestrator adapters prod 1 LbrzOrchestator  "$(mvn org.apache.maven.plugins:maven-help-plugin:2.1.1:evaluate -Dexpression=project.version|grep -Ev '(^\[|Download\w+:)')"
                           
                       fi              
             else
@@ -46,7 +46,7 @@ jobs:
           command: |
             echo "Preparing release for QA..."
             #if [ "${CIRCLE_BRANCH}" == "" ]; then
-                      chmod 755 deploy.sh && ./deploy.sh orchestator adapters qa 1 orchestator "$(mvn org.apache.maven.plugins:maven-help-plugin:2.1.1:evaluate -Dexpression=project.version|grep -Ev '(^\[|Download\w+:)')"
+                      chmod 755 deploy.sh && ./deploy.sh orchestrator adapters qa 1 orchestator "$(mvn org.apache.maven.plugins:maven-help-plugin:2.1.1:evaluate -Dexpression=project.version|grep -Ev '(^\[|Download\w+:)')"
             #fi
       - run:
           name: SONAR
