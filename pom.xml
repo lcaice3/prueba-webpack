@@ -7,6 +7,19 @@
 	<artifactId>LbrzOrchestator</artifactId>
 	<version>0.0.2</version>
 	<packaging>jar</packaging>
+	
+	<distributionManagement>
+		<repository>
+			<id>central</id>
+			<name>bancodebogota-releases</name>
+			<url>https://bancodebogota.jfrog.io/bancodebogota/maven-releases</url>
+		</repository>
+		<snapshotRepository>
+			<id>snapshots</id>
+			<name>bancodebogota-snapshots</name>
+			<url>https://bancodebogota.jfrog.io/bancodebogota/maven-releases</url>
+		</snapshotRepository>
+	</distributionManagement>
 
 	<name>LbrzOrchestator</name>
 	<description>Orquestador de libranzas - mvp 3</description>
@@ -28,6 +41,12 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter</artifactId>
+		</dependency>
+		
+		<dependency>
+			<groupId>co.com.bancodebogota</groupId>
+			<artifactId>bdb-dig-utilities</artifactId>
+			<version>0.0.30</version>
 		</dependency>
 
 		<dependency>
@@ -57,6 +76,13 @@
         </dependency>
 
 	</dependencies>
+	
+	<scm>
+		<connection>scm:git:https://github.com/bancodebogota/orchestrator.git</connection>
+		<developerConnection>scm:git:git@github.com:bancodebogota/orchestrator.git</developerConnection>
+		<url>https://github.com/bancodebogota/orchestrator.git</url>
+		<tag>HEAD</tag>
+	</scm>
 
 	<build>
 		<plugins>
