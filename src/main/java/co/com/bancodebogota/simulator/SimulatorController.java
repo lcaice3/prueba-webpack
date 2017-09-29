@@ -27,8 +27,14 @@ public class SimulatorController {
 	}
 	
 	@GetMapping("/simulator/simulation-params")
-	public ResponseEntity<SimulatorParamsDTO> getSimulationData() {
+	public ResponseEntity<SimulatorParamsDTO> getSimulationParams() {
 		SimulatorParamsDTO response = simulatorService.getSimulatorParams();
 		return new ResponseEntity<SimulatorParamsDTO>(response, HttpStatus.OK);
+	}
+	
+	@GetMapping("/simulator/rates-table")
+	public ResponseEntity<double[][]> getRatesTable() {
+		double [][] response = simulatorService.getRatesTable();
+		return new ResponseEntity<double [][]>(response, HttpStatus.OK);
 	}
 }
