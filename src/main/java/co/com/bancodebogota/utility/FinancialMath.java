@@ -21,7 +21,7 @@ public class FinancialMath {
 		return Math.pow(nominal / nPeriods + 1, nPeriods) - 1;
 	}
 	
-	public static double maxLoanAmount(double salary, double discount) {
-		return (salary / 2) - discount;
+	public static double maxLoanAmount(double salary, double discount, int nPeriods) {
+		return nPeriods * ((salary / 2) - discount);
 	}
 }
