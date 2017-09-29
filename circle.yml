@@ -2,13 +2,13 @@ version: 2
 
 jobs:
   build:
-    working_directory: ~/circleci-orchestrator
+    working_directory: ~/circleci-LbrzOrchestator
     machine:
       environment:
         SPRING_PROFILES_ACTIVE: test
       timezone:
         America/Bogota
-      java:
+      java: 
         version: openjdk8
       services:
         - docker
@@ -34,8 +34,9 @@ jobs:
                       else
                           echo "Preparing release..."
                           mvn -B release:prepare -Dmaven.test.skip=true -Dmaven.repo.local=/home/circleci/.m2/repository -s settings.xml
-                          chmod 755 deploy.sh && ./deploy.sh orchestrator adapters staging 1 orchestrator "$(mvn org.apache.maven.plugins:maven-help-plugin:2.1.1:evaluate -Dexpression=project.version|grep -Ev '(^\[|Download\w+:)')"
-                          chmod 755 deploy.sh && ./deploy.sh orchestrator adapters prod 1 orchestrator "$(mvn org.apache.maven.plugins:maven-help-plugin:2.1.1:evaluate -Dexpression=project.version|grep -Ev '(^\[|Download\w+:)')"
+                          chmod 755 deploy.sh && ./deploy.sh orchestrator adapters staging  "$(mvn org.apache.maven.plugins:maven-help-plugin:2.1.1:evaluate -Dexpression=project.version|grep -Ev '(^\[|Download\w+:)')"
+                          chmod 755 deploy.sh && ./deploy.sh orchestrator adapters prod  "$(mvn org.apache.maven.plugins:maven-help-plugin:2.1.1:evaluate -Dexpression=project.version|grep -Ev '(^\[|Download\w+:)')"
+                          
                       fi              
             else
                echo "Not deployed into master!!"
@@ -43,15 +44,16 @@ jobs:
       - deploy:
           name: Deploy QA
           command: |
-            if [ "${CIRCLE_BRANCH}" == "cuenta_codigo_vendedor" ]; then
-                      chmod 755 deploy.sh && ./deploy.sh orchestrator adapters qa 1 orchestrator "$(mvn org.apache.maven.plugins:maven-help-plugin:2.1.1:evaluate -Dexpression=project.version|grep -Ev '(^\[|Download\w+:)')"
-            fi
+            echo "Preparing release for QA..."
+            #if [ "${CIRCLE_BRANCH}" == "" ]; then
+                      chmod 755 deploy.sh && ./deploy.sh orchestrator adapters qa "$(mvn org.apache.maven.plugins:maven-help-plugin:2.1.1:evaluate -Dexpression=project.version|grep -Ev '(^\[|Download\w+:)')"
+            #fi
       - run:
           name: SONAR
           command: |
-            if [ "${CIRCLE_BRANCH}" == "master" ]; then
-                          mvn sonar:sonar -s settings_sonar.xml
-            fi             
+           # if [ "${CIRCLE_BRANCH}" == "master" ]; then
+           #               mvn sonar:sonar -s settings_sonar.xml
+           # fi             
       - save_cache:
           paths:
             - ~/.m2

@@ -1,5 +1,5 @@
 FROM 628007708529.dkr.ecr.us-east-1.amazonaws.com/bdb-java8-oracle-alpine:1.0
-MAINTAINER BdB <gmorris@bancodebogota.com.co>
+MAINTAINER BdB <jparr17@bancodebogota.com.co>
 ARG BDB_ENV
 ARG BDB_AWS_ACCESS_KEY_ID
 ARG BDB_AWS_SECRET_ACCESS_KEY
