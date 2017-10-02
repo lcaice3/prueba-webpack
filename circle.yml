@@ -12,7 +12,7 @@ jobs:
         version: openjdk8
       services:
         - docker
-    general:
+    general: 
       artifacts:
         - "target/app.jar"
     steps:
