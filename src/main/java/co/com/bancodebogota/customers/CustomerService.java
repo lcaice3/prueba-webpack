@@ -27,17 +27,24 @@ public class CustomerService {
 
 	public CustomerExistsResponseDTO checkUserExists(String identityType, String identityNumber) {
 
-		CustomerDTO customer = getCustomerInfoFromBackend(identityType, identityNumber);
 		CustomerExistsResponseDTO response = new CustomerExistsResponseDTO();
-		
-		response.isCustomer(customerExists(customer));
-
-		if (response.isCustomer()) {
-			BlacklistRequestDTO blackListRequest = new BlacklistRequestDTO(identityNumber,
-					customer.getLastName(), null, customer.getFirstName());
-			boolean clientInBlacklist = blacklistService.isInBlacklist(blackListRequest);
-			response.isInBlacklist(clientInBlacklist);
+		try
+		{
+			CustomerDTO customer = getCustomerInfoFromBackend(identityType, identityNumber);
+			
+			
+			response.isCustomer(customerExists(customer));
+	
+			if (response.isCustomer()) {
+				BlacklistRequestDTO blackListRequest = new BlacklistRequestDTO(identityNumber,
+						customer.getLastName(), null, customer.getFirstName());
+				boolean clientInBlacklist = blacklistService.isInBlacklist(blackListRequest);
+				response.isInBlacklist(clientInBlacklist);
 		} 
+		} catch (Exception e) {
+			System.out.println("checkUserExists "+e.getMessage() );
+			throw e;
+		}
 
 		return response;
 	}
@@ -66,7 +73,7 @@ public class CustomerService {
 			return restTemplate.getForObject(uri, CustomerDTO.class);
 			
 		} catch (Exception e) {
-			System.out.println(e.getMessage()+ url );
+			System.out.println("get customer info"+e.getMessage()+ url );
 			throw e;
 		}
 	}
