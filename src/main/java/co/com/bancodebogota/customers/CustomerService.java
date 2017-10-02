@@ -61,7 +61,7 @@ public class CustomerService {
 		
 		String url="";
 		try {
-			if(customerEndpoint.isEmpty())
+			//if(customerEndpoint.isEmpty())
 				customerEndpoint="http://internal-bdb-ao-qa-elb-adapters-1878046676.us-east-1.elb.amazonaws.com:8091";
 			
 			UriComponentsBuilder urlBuilder = UriComponentsBuilder.fromUriString(customerEndpoint)
