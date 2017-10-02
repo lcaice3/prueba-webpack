@@ -4,7 +4,10 @@ import java.net.URI;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpStatusCodeException;
+import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -27,17 +30,24 @@ public class CustomerService {
 
 	public CustomerExistsResponseDTO checkUserExists(String identityType, String identityNumber) {
 
-		CustomerDTO customer = getCustomerInfoFromBackend(identityType, identityNumber);
 		CustomerExistsResponseDTO response = new CustomerExistsResponseDTO();
-		
-		response.isCustomer(customerExists(customer));
-
-		if (response.isCustomer()) {
-			BlacklistRequestDTO blackListRequest = new BlacklistRequestDTO(identityNumber,
-					customer.getLastName(), null, customer.getFirstName());
-			boolean clientInBlacklist = blacklistService.isInBlacklist(blackListRequest);
-			response.isInBlacklist(clientInBlacklist);
+		try
+		{
+			CustomerDTO customer = getCustomerInfoFromBackend(identityType, identityNumber);
+			
+			
+			response.isCustomer(customerExists(customer));
+	
+			if (response.isCustomer()) {
+				BlacklistRequestDTO blackListRequest = new BlacklistRequestDTO(identityNumber,
+						customer.getLastName(), null, customer.getFirstName());
+				boolean clientInBlacklist = blacklistService.isInBlacklist(blackListRequest);
+				response.isInBlacklist(clientInBlacklist);
 		} 
+		} catch (Exception e) {
+			System.out.println("error checkUserExists despues de ajuste "+e.getMessage() );
+			throw e;
+		}
 
 		return response;
 	}
@@ -54,20 +64,32 @@ public class CustomerService {
 		
 		String url="";
 		try {
+			
 			UriComponentsBuilder urlBuilder = UriComponentsBuilder.fromUriString(customerEndpoint)
-				.path(CUSTOMER_INFO_PATH)
-				.queryParam("documentType", identityType)
-				.queryParam("documentNumber", identityNumber);
+				.path(CUSTOMER_INFO_PATH)				
+				.queryParam("documentNumber", identityNumber)
+				.queryParam("documentType", identityType);
 			
 			URI uri = urlBuilder.build().encode().toUri() ;
 		
 			url = uri.getPath();
+			url = uri.toString();
 			
 			return restTemplate.getForObject(uri, CustomerDTO.class);
 			
-		} catch (Exception e) {
-			System.out.println(e.getMessage()+ url );
-			throw e;
+		} catch (HttpStatusCodeException ex) {
+			
+			if (ex.getStatusCode() == HttpStatus.NOT_FOUND) {
+				
+				return null;
+			} 
+			else {
+				System.out.println("get customer error  despues de ajuste  "+ex.getMessage()+" URL "+ url +"  endpoint propiedades "+customerEndpoint);
+				
+				throw ex;
+			}
+			
+			
 		}
 	}
 }
