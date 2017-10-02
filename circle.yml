@@ -11,7 +11,7 @@ jobs:
       java: 
         version: openjdk8
       services:
-        - docker
+        - docker 
     general: 
       artifacts:
         - "target/app.jar"
