@@ -4,7 +4,10 @@ import java.net.URI;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpStatusCodeException;
+import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -61,8 +64,6 @@ public class CustomerService {
 		
 		String url="";
 		try {
-			//if(customerEndpoint.isEmpty())
-				//customerEndpoint="http://internal-bdb-ao-qa-elb-adapters-1878046676.us-east-1.elb.amazonaws.com:8091";
 			
 			UriComponentsBuilder urlBuilder = UriComponentsBuilder.fromUriString(customerEndpoint)
 				.path(CUSTOMER_INFO_PATH)				
@@ -76,9 +77,19 @@ public class CustomerService {
 			
 			return restTemplate.getForObject(uri, CustomerDTO.class);
 			
-		} catch (Exception e) {
-			System.out.println("get customer error  despues de ajuste  "+e.getMessage()+" URL "+ url +"  endpoint propiedades "+customerEndpoint);
-			throw e;
+		} catch (HttpStatusCodeException ex) {
+			
+			if (ex.getStatusCode() == HttpStatus.NOT_FOUND) {
+				
+				return null;
+			} 
+			else {
+				System.out.println("get customer error  despues de ajuste  "+ex.getMessage()+" URL "+ url +"  endpoint propiedades "+customerEndpoint);
+				
+				throw ex;
+			}
+			
+			
 		}
 	}
 }
