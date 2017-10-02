@@ -29,6 +29,13 @@ public class SimulatorService {
 
 	@Value("${MAXIMUM_AMOUNT}")
 	private String maxAmount;
+	
+	@Value("${AMOUNT_STEP}")
+	private String amountStep;
+	
+	@Value("${TERM_STEP}")
+	private String periodStep;
+	
 
 	/**
 	 * @return the perLifeInsurance
@@ -63,6 +70,20 @@ public class SimulatorService {
 	 */
 	private double getMaxAmount() {
 		return Double.parseDouble(maxAmount);
+	}
+
+	/**
+	 * @return the amountStep
+	 */
+	private double getAmountStep() {
+		return Double.parseDouble(amountStep);
+	}
+
+	/**
+	 * @return the periodStep
+	 */
+	private int getPeriodStep() {
+		return Integer.parseInt(periodStep);
 	}
 
 	public SimulatorResponseDTO getSimulatorData(SimulatorRequestDTO request) {
@@ -103,6 +124,8 @@ public class SimulatorService {
 		params.setMinPeriods(getMinPeriods());
 		params.setMaxAmount(getMaxAmount());
 		params.setPerLifeInsurance(getPerLifeInsurance());
+		params.setAmountStep(getAmountStep());
+		params.setPeriodsStep(getPeriodStep());
 
 		return params;
 	}
