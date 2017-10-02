@@ -65,9 +65,9 @@ public class CustomerService {
 				//customerEndpoint="http://internal-bdb-ao-qa-elb-adapters-1878046676.us-east-1.elb.amazonaws.com:8091";
 			
 			UriComponentsBuilder urlBuilder = UriComponentsBuilder.fromUriString(customerEndpoint)
-				.path(CUSTOMER_INFO_PATH)
-				.queryParam("documentType", identityType)
-				.queryParam("documentNumber", identityNumber);
+				.path(CUSTOMER_INFO_PATH)				
+				.queryParam("documentNumber", identityNumber)
+				.queryParam("documentType", identityType);
 			
 			URI uri = urlBuilder.build().encode().toUri() ;
 		
