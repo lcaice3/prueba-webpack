@@ -76,7 +76,7 @@ public class CustomerService {
 			return restTemplate.getForObject(uri, CustomerDTO.class);
 			
 		} catch (Exception e) {
-			System.out.println("get customer error  despues de ajuste  "+e.getMessage()+" URL "+ url );
+			System.out.println("get customer error  despues de ajuste  "+e.getMessage()+" URL "+ url +"  endpoint "+customerEndpoint);
 			throw e;
 		}
 	}
