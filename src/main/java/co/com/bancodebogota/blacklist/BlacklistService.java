@@ -27,6 +27,9 @@ public class BlacklistService {
 	public boolean isInBlacklist(BlacklistRequestDTO blacklistRequestDTO) {
 		boolean clientInBlacklist = false;
 		
+		if(blacklistEndpoint.isEmpty())
+			blacklistEndpoint="http://ip-10-88-6-75.ec2.internal:8084";
+		
 		UriComponentsBuilder urlBuilder = UriComponentsBuilder.fromUriString(blacklistEndpoint)
 				.path(CONSULT_BLACKLIST_PATH)
 				.queryParam("documentNumber", blacklistRequestDTO.getDocumentNumber())
