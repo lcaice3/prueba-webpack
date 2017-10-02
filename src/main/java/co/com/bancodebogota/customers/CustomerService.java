@@ -42,7 +42,7 @@ public class CustomerService {
 				response.isInBlacklist(clientInBlacklist);
 		} 
 		} catch (Exception e) {
-			System.out.println("checkUserExists "+e.getMessage() );
+			System.out.println("error checkUserExists descripcion "+e.getMessage() );
 			throw e;
 		}
 
@@ -73,7 +73,7 @@ public class CustomerService {
 			return restTemplate.getForObject(uri, CustomerDTO.class);
 			
 		} catch (Exception e) {
-			System.out.println("get customer info"+e.getMessage()+ url );
+			System.out.println("get customer info  eror "+e.getMessage()+" URL "+ url );
 			throw e;
 		}
 	}
