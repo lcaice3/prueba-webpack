@@ -62,7 +62,7 @@ public class CustomerService {
 		String url="";
 		try {
 			//if(customerEndpoint.isEmpty())
-				customerEndpoint="http://internal-bdb-ao-qa-elb-adapters-1878046676.us-east-1.elb.amazonaws.com:8091";
+				//customerEndpoint="http://internal-bdb-ao-qa-elb-adapters-1878046676.us-east-1.elb.amazonaws.com:8091";
 			
 			UriComponentsBuilder urlBuilder = UriComponentsBuilder.fromUriString(customerEndpoint)
 				.path(CUSTOMER_INFO_PATH)
@@ -72,11 +72,12 @@ public class CustomerService {
 			URI uri = urlBuilder.build().encode().toUri() ;
 		
 			url = uri.getPath();
+			url = uri.toString();
 			
 			return restTemplate.getForObject(uri, CustomerDTO.class);
 			
 		} catch (Exception e) {
-			System.out.println("get customer error  despues de ajuste  "+e.getMessage()+" URL "+ url +"  endpoint "+customerEndpoint);
+			System.out.println("get customer error  despues de ajuste  "+e.getMessage()+" URL "+ url +"  endpoint propiedades "+customerEndpoint);
 			throw e;
 		}
 	}
