@@ -101,6 +101,7 @@ public class SimulatorService {
 		params.setMaxPeriods(getMaxPeriods());
 		params.setMinAmount(getMinAmount());
 		params.setMinPeriods(getMinPeriods());
+		params.setPerLifeInsurance(getPerLifeInsurance());
 
 		return params;
 	}
