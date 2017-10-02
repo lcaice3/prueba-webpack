@@ -1,7 +1,6 @@
 package co.com.bancodebogota.utility;
 
 import static org.assertj.core.api.Assertions.*;
-import static org.junit.Assert.*;
 
 import org.junit.Test;
 

@@ -5,6 +5,7 @@ public class SimulatorParamsDTO {
 	private int minPeriods;
 	private int maxPeriods;
 	private double minAmount;
+	private double maxAmount;
 	private double perLifeInsurance; 
 	
 	public int getMinPeriods() {
@@ -26,6 +27,13 @@ public class SimulatorParamsDTO {
 		this.minAmount = minAmount;
 	}
 
+	public double getMaxAmount() {
+		return maxAmount;
+	}
+
+	public void setMaxAmount(double maxAmount) {
+		this.maxAmount = maxAmount;
+	}
 	public double getPerLifeInsurance() {
 		return perLifeInsurance;
 	}
