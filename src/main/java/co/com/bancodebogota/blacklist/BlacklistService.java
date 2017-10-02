@@ -53,6 +53,7 @@ public class BlacklistService {
 		return clientInBlacklist;
 	}
 
+	
 	public JsonNode registerCase(BlacklistCaseRequestDTO blacklistRegCasoRqDto) {
 		String resource = REGISTER_BLACKLIST_CASE_PATH;
 		String url = blacklistEndpoint + resource;
