@@ -1,9 +1,14 @@
 package co.com.bancodebogota.simulator;
 
+import java.net.URI;
 import java.util.Arrays;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpStatusCodeException;
+import org.springframework.web.client.RestTemplate;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import co.com.bancodebogota.simulator.dto.SimulatorParamsDTO;
 import co.com.bancodebogota.simulator.dto.SimulatorRequestDTO;
@@ -14,6 +19,9 @@ import co.com.bancodebogota.utility.FinancialMath;
 public class SimulatorService {
 
 	private static int COMP_PERIOD = 12;
+	
+	@Value("${DECISOR_ENDPOINT}")
+	private String decisorEndpoint;
 
 	@Value("${PER_LIFE_INSURANCE}")
 	private String perLifeInsurance;
@@ -38,6 +46,9 @@ public class SimulatorService {
 	
 	@Value("${MAXIMUM_AMOUNT_STEP}")
 	private String maxAmountStep;
+	
+	@Autowired
+	private RestTemplate restTemplate;
 	
 
 	/**
@@ -135,7 +146,8 @@ public class SimulatorService {
 		params.setMaxAmount(getMaxAmount());
 		params.setPerLifeInsurance(getPerLifeInsurance());
 		params.setAmountStep(getAmountStep());
-		params.setPeriodsStep(getPeriodStep());
+		params.setPeriodStep(getPeriodStep());
+		params.setMaxAmountStep(getMaxAmountStep());
 
 		return params;
 	}
@@ -161,9 +173,27 @@ public class SimulatorService {
 
 	private double getAgreementRate(double amount, double nPeriods) {
 		// TODO: Comsumir decisor
-
-		return 0.0125;
-
+		
+		String url="";
+		try {
+			
+			UriComponentsBuilder urlBuilder = UriComponentsBuilder.fromUriString(decisorEndpoint)
+				.path("/convenio")				
+				.queryParam("amount", amount)
+				.queryParam("plazo", nPeriods);
+			
+			URI uri = urlBuilder.build().encode().toUri() ;
+		
+			url = uri.getPath();
+			url = uri.toString();
+			
+			// return restTemplate.getForObject(uri, Double.class);
+			return 0.0125;
+			
+		} catch (HttpStatusCodeException ex) {
+			
+			throw ex;	
+		}
 	}
 
 }
