@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.HttpServerErrorException;
 
 import co.com.bancodebogota.simulator.dto.SimulatorParamsDTO;
 import co.com.bancodebogota.simulator.dto.SimulatorRequestDTO;
@@ -33,7 +34,12 @@ public class SimulatorController {
 	
 	@GetMapping("/simulator/rates-table")
 	public ResponseEntity<double[][]> getRatesTable() {
-		double [][] response = simulatorService.getRatesTable();
-		return new ResponseEntity<double [][]>(response, HttpStatus.OK);
+		try {
+			double [][] response = simulatorService.getRatesTable();
+			return new ResponseEntity<double [][]>(response, HttpStatus.OK);
+		} catch (HttpServerErrorException e) {
+			return new ResponseEntity<>(null, e.getStatusCode());
+		}
+		
 	}
 }

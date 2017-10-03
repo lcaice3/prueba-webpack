@@ -1,15 +1,20 @@
 package co.com.bancodebogota.simulator;
 
+import static org.springframework.test.web.client.match.MockRestRequestMatchers.queryParam;
+
 import java.net.URI;
 import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.client.HttpStatusCodeException;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import co.com.bancodebogota.simulator.dto.RatesResponseDTO;
 import co.com.bancodebogota.simulator.dto.SimulatorParamsDTO;
 import co.com.bancodebogota.simulator.dto.SimulatorRequestDTO;
 import co.com.bancodebogota.simulator.dto.SimulatorResponseDTO;
@@ -19,7 +24,7 @@ import co.com.bancodebogota.utility.FinancialMath;
 public class SimulatorService {
 
 	private static int COMP_PERIOD = 12;
-	
+
 	@Value("${DECISOR_ENDPOINT}")
 	private String decisorEndpoint;
 
@@ -37,19 +42,18 @@ public class SimulatorService {
 
 	@Value("${MAXIMUM_AMOUNT}")
 	private String maxAmount;
-	
+
 	@Value("${AMOUNT_STEP}")
 	private String amountStep;
-	
+
 	@Value("${TERM_STEP}")
 	private String periodStep;
-	
+
 	@Value("${MAXIMUM_AMOUNT_STEP}")
 	private String maxAmountStep;
-	
+
 	@Autowired
 	private RestTemplate restTemplate;
-	
 
 	/**
 	 * @return the perLifeInsurance
@@ -122,7 +126,7 @@ public class SimulatorService {
 				request.getNumPeriods());
 
 		Arrays.fill(payments, payment + lifeInsurance);
-		payments[0] = -request.getAmount(); 
+		payments[0] = -request.getAmount();
 
 		double vtua = FinancialMath.getIRR(payments);
 
@@ -159,41 +163,39 @@ public class SimulatorService {
 		int amountDimension = (int) (getMaxAmountStep() / amountRange) + 1;
 
 		double[][] rates = new double[periodDimension][amountDimension];
-
+		
 		for (int i = 0; i < periodDimension; i++) {
 			for (int j = 0; j < amountDimension; j++) {
-				int period = periodRange * (i+1);
-				double amount = amountRange * (j+1);
+				int period = periodRange * (i + 1);
+				double amount = amountRange * (j + 1);
 				rates[i][j] = getAgreementRate(amount, period);
 			}
 		}
-		
 		return rates;
 	}
 
 	private double getAgreementRate(double amount, double nPeriods) {
-		// TODO: Comsumir decisor
-		
-		String url="";
+
 		try {
-			
+
 			UriComponentsBuilder urlBuilder = UriComponentsBuilder.fromUriString(decisorEndpoint)
-				.path("/convenio")				
-				.queryParam("amount", amount)
-				.queryParam("plazo", nPeriods);
-			
-			URI uri = urlBuilder.build().encode().toUri() ;
-		
-			url = uri.getPath();
-			url = uri.toString();
-			
-			// return restTemplate.getForObject(uri, Double.class);
-			return 0.0125;
-			
+					.path("/decisor/consult-rates/").queryParam("codigoLinea", 131).queryParam("monto", amount)
+					.queryParam("scoreAcierta", 0).queryParam("plazo", nPeriods).queryParam("sustitucionPasivos", 1)
+					.queryParam("esPremium", 2).queryParam("banca", 2);
+
+			URI uri = urlBuilder.build().encode().toUri();
+
+			RatesResponseDTO response = restTemplate.getForObject(uri, RatesResponseDTO.class);
+
+			if (response.getDescripcionRespuesta().equals("OK")) {
+				return response.getValor() / 100;
+			} else {
+				throw new HttpServerErrorException(HttpStatus.FORBIDDEN);
+			}
+
 		} catch (HttpStatusCodeException ex) {
-			
-			throw ex;	
+			System.out.println(ex.getMessage());
+			throw ex;
 		}
 	}
-
 }
