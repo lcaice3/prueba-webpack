@@ -176,7 +176,9 @@ public class SimulatorService {
 
 		try {
 
-			UriComponentsBuilder urlBuilder = UriComponentsBuilder.fromUriString(decisorEndpoint)
+			/*
+
+			 
 					.path("/decisor/consult-rates/").queryParam("codigoLinea", 131).queryParam("monto", amount)
 					.queryParam("scoreAcierta", 0).queryParam("plazo", nPeriods).queryParam("sustitucionPasivos", 1)
 					.queryParam("esPremium", 2).queryParam("banca", 2);
@@ -184,12 +186,13 @@ public class SimulatorService {
 			URI uri = urlBuilder.build().encode().toUri();
 
 			RatesResponseDTO response = restTemplate.getForObject(uri, RatesResponseDTO.class);
-
-			if (response.getDescripcionRespuesta().equals("OK")) {
-				return response.getValor() / 100;
-			} else {
-				throw new HttpServerErrorException(HttpStatus.FORBIDDEN);
-			}
+              */
+			//if (response.getDescripcionRespuesta().equals("OK")) {
+				//return response.getValor() / 100;
+				return 0.0130;
+			//} else {
+				//throw new HttpServerErrorException(HttpStatus.FORBIDDEN);
+		//	}
 
 		} catch (HttpStatusCodeException ex) {
 			System.out.println(ex.getMessage());
