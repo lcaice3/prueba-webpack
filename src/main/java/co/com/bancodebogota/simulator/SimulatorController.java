@@ -6,7 +6,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import co.com.bancodebogota.simulator.dto.SimulatorParamsDTO;
@@ -21,7 +20,7 @@ public class SimulatorController {
 	private SimulatorService simulatorService;
  
 	@GetMapping("/simulator/simulate-loan")
-	public ResponseEntity<SimulatorResponseDTO> getSimulationData(@RequestParam SimulatorRequestDTO request) {
+	public ResponseEntity<SimulatorResponseDTO> getSimulationData(SimulatorRequestDTO request) {
 		SimulatorResponseDTO response = simulatorService.getSimulatorData(request);
 		return new ResponseEntity<SimulatorResponseDTO>(response, HttpStatus.OK);
 	}

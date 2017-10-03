@@ -49,7 +49,7 @@ public class SimulatorParamsDTO {
 		return periodStep;
 	}
 
-	public void setPeriodsStep(int periodsStep) {
+	public void setPeriodStep(int periodsStep) {
 		this.periodStep = periodsStep;
 	}
 
