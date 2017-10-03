@@ -1,7 +1,5 @@
 package co.com.bancodebogota.simulator;
 
-import static org.springframework.test.web.client.match.MockRestRequestMatchers.queryParam;
-
 import java.net.URI;
 import java.util.Arrays;
 
