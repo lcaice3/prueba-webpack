@@ -36,6 +36,9 @@ public class SimulatorService {
 	@Value("${TERM_STEP}")
 	private String periodStep;
 	
+	@Value("${MAXIMUM_AMOUNT_STEP}")
+	private String maxAmountStep;
+	
 
 	/**
 	 * @return the perLifeInsurance
@@ -86,6 +89,13 @@ public class SimulatorService {
 		return Integer.parseInt(periodStep);
 	}
 
+	/**
+	 * @return the maxAmountStep
+	 */
+	private double getMaxAmountStep() {
+		return Double.parseDouble(maxAmountStep);
+	}
+
 	public SimulatorResponseDTO getSimulatorData(SimulatorRequestDTO request) {
 
 		SimulatorResponseDTO data = new SimulatorResponseDTO();
@@ -131,10 +141,10 @@ public class SimulatorService {
 	}
 
 	public double[][] getRatesTable() {
-		int periodRange = 6;
-		int amountRange = 100000;
+		int periodRange = getPeriodStep();
+		double amountRange = getAmountStep();
 		int periodDimension = getMaxPeriods() / periodRange;
-		int amountDimension = (int) (getMaxAmount() / amountRange);
+		int amountDimension = (int) (getMaxAmountStep() / amountRange) + 1;
 
 		double[][] rates = new double[periodDimension][amountDimension];
 
