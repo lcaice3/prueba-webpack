@@ -87,7 +87,7 @@
 	<repositories>
 		<repository>
 			<snapshots>
-				<enabled>true</enabled>
+				<enabled>false</enabled>
 			</snapshots>
 			<id>central</id>
 			<name>bintray</name>
@@ -99,7 +99,7 @@
 	<pluginRepositories>
 		<pluginRepository>
 			<snapshots>
-				<enabled>true</enabled>
+				<enabled>false</enabled>
 			</snapshots>
 			<id>central</id>
 			<name>bintray-plugins</name>
