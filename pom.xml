@@ -5,21 +5,10 @@
 
 	<groupId>co.com.bancodebogota</groupId>
 	<artifactId>LbrzOrchestator</artifactId>
-	<version>0.0.2</version>
+	<version>2.0.0</version>
 	<packaging>jar</packaging>
+
 	
-	<distributionManagement>
-		<repository>
-			<id>central</id>
-			<name>bancodebogota-releases</name>
-			<url>https://bancodebogota.jfrog.io/bancodebogota/maven-releases</url>
-		</repository>
-		<snapshotRepository>
-			<id>snapshots</id>
-			<name>bancodebogota-snapshots</name>
-			<url>https://bancodebogota.jfrog.io/bancodebogota/maven-releases</url>
-		</snapshotRepository>
-	</distributionManagement>
 
 	<name>LbrzOrchestator</name>
 	<description>Orquestador de libranzas - mvp 3</description>
@@ -42,7 +31,7 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter</artifactId>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>co.com.bancodebogota</groupId>
 			<artifactId>bdb-dig-utilities</artifactId>
@@ -62,21 +51,21 @@
 			<groupId>redis.clients</groupId>
 			<artifactId>jedis</artifactId>
 		</dependency>
-		
+
 		<dependency>
-              <groupId>org.apache.poi</groupId>
-              <artifactId>poi</artifactId>
-              <version>3.17</version>
-           </dependency>
-		
-        <dependency>
-            <groupId>org.jacoco</groupId>
-            <artifactId>jacoco-maven-plugin</artifactId>
-            <version>0.7.9</version>
-        </dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi</artifactId>
+			<version>3.17</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.jacoco</groupId>
+			<artifactId>jacoco-maven-plugin</artifactId>
+			<version>0.7.9</version>
+		</dependency>
 
 	</dependencies>
-	
+
 	<scm>
 		<connection>scm:git:https://github.com/bancodebogota/LbrzOrchestator.git</connection>
 		<developerConnection>scm:git:git@github.com:bancodebogota/LbrzOrchestator.git</developerConnection>
@@ -93,12 +82,12 @@
 		</plugins>
 		<finalName>app</finalName>
 	</build>
-	
-	
+
+
 	<repositories>
 		<repository>
 			<snapshots>
-				<enabled>false</enabled>
+				<enabled>true</enabled>
 			</snapshots>
 			<id>central</id>
 			<name>bintray</name>
@@ -110,7 +99,7 @@
 	<pluginRepositories>
 		<pluginRepository>
 			<snapshots>
-				<enabled>false</enabled>
+				<enabled>true</enabled>
 			</snapshots>
 			<id>central</id>
 			<name>bintray-plugins</name>
