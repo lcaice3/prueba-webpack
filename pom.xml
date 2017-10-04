@@ -78,9 +78,9 @@
 	</dependencies>
 	
 	<scm>
-		<connection>scm:git:https://github.com/bancodebogota/orchestrator.git</connection>
-		<developerConnection>scm:git:git@github.com:bancodebogota/orchestrator.git</developerConnection>
-		<url>https://github.com/bancodebogota/orchestrator.git</url>
+		<connection>scm:git:https://github.com/bancodebogota/LbrzOrchestator.git</connection>
+		<developerConnection>scm:git:git@github.com:bancodebogota/LbrzOrchestator.git</developerConnection>
+		<url>https://github.com/bancodebogota/LbrzOrchestator.git</url>
 		<tag>HEAD</tag>
 	</scm>
 
