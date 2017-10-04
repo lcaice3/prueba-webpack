@@ -8,7 +8,18 @@
 	<version>0.0.3</version>
 	<packaging>jar</packaging>
 
-	
+		<distributionManagement>
+		<repository>
+			<id>central</id>
+			<name>bancodebogota-releases</name>
+			<url>https://bancodebogota.jfrog.io/bancodebogota/maven-releases</url>
+		</repository>
+		<snapshotRepository>
+			<id>snapshots</id>
+			<name>bancodebogota-snapshots</name>
+			<url>https://bancodebogota.jfrog.io/bancodebogota/maven-releases</url>
+		</snapshotRepository>
+	</distributionManagement>
 
 	<name>LbrzOrchestator</name>
 	<description>Orquestador de libranzas - mvp 3</description>
@@ -84,28 +95,6 @@
 	</build>
 
 
-	<repositories>
-		<repository>
-			<snapshots>
-				<enabled>false</enabled>
-			</snapshots>
-			<id>central</id>
-			<name>bintray</name>
-			<url>https://bancodebogota.jfrog.io/bancodebogota/maven-public/</url>
-		</repository>
-
-
-	</repositories>
-	<pluginRepositories>
-		<pluginRepository>
-			<snapshots>
-				<enabled>false</enabled>
-			</snapshots>
-			<id>central</id>
-			<name>bintray-plugins</name>
-			<url>https://bancodebogota.jfrog.io/bancodebogota/maven-public/</url>
-		</pluginRepository>
-	</pluginRepositories>
 
 
 </project>
