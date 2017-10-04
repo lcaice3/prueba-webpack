@@ -5,22 +5,10 @@
 
 	<groupId>co.com.bancodebogota</groupId>
 	<artifactId>LbrzOrchestator</artifactId>
-	<version>0.0.3</version>
+	<version>0.0.3-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-		<distributionManagement>
-		<repository>
-			<id>central</id>
-			<name>bancodebogota-releases</name>
-			<url>https://bancodebogota.jfrog.io/bancodebogota/maven-releases</url>
-		</repository>
-		<snapshotRepository>
-			<id>snapshots</id>
-			<name>bancodebogota-snapshots</name>
-			<url>https://bancodebogota.jfrog.io/bancodebogota/maven-releases</url>
-		</snapshotRepository>
-	</distributionManagement>
-
+		
 	<name>LbrzOrchestator</name>
 	<description>Orquestador de libranzas - mvp 3</description>
 
