@@ -3,8 +3,10 @@ package co.com.bancodebogota;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.web.client.RestTemplate;
 
+@ComponentScan({"co.com.bancodebogota.blacklist","co.com.bancodebogota.customers","co.com.bancodebogota.simulator"})
 @SpringBootApplication
 public class LbrzOrchestatorApplication {
 	
@@ -12,6 +14,8 @@ public class LbrzOrchestatorApplication {
     public RestTemplate restTemplate() {
         return new RestTemplate();
     }
+
+	
 
 	public static void main(String[] args) {
 		SpringApplication.run(LbrzOrchestatorApplication.class, args);

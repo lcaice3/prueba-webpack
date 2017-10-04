@@ -4,8 +4,8 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>co.com.bancodebogota</groupId>
-	<artifactId>LbrzOrchestrator</artifactId>
-	<version>1.0.1</version>
+	<artifactId>LbrzOrchestator</artifactId>
+	<version>0.0.2</version>
 	<packaging>jar</packaging>
 	
 	<distributionManagement>
@@ -42,6 +42,12 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter</artifactId>
 		</dependency>
+		
+		<dependency>
+			<groupId>co.com.bancodebogota</groupId>
+			<artifactId>bdb-dig-utilities</artifactId>
+			<version>0.0.30</version>
+		</dependency>
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -57,6 +63,12 @@
 			<artifactId>jedis</artifactId>
 		</dependency>
 		
+		<dependency>
+              <groupId>org.apache.poi</groupId>
+              <artifactId>poi</artifactId>
+              <version>3.17</version>
+           </dependency>
+		
         <dependency>
             <groupId>org.jacoco</groupId>
             <artifactId>jacoco-maven-plugin</artifactId>
@@ -66,9 +78,9 @@
 	</dependencies>
 	
 	<scm>
-		<connection>scm:git:https://github.com/bancodebogota/LbrzOrchestator.git</connection>
-		<developerConnection>scm:git:git@github.com:bancodebogota/LbrzOrchestator.git</developerConnection>
-		<url>https://github.com/bancodebogota/LbrzOrchestator.git</url>
+		<connection>scm:git:https://github.com/bancodebogota/orchestrator.git</connection>
+		<developerConnection>scm:git:git@github.com:bancodebogota/orchestrator.git</developerConnection>
+		<url>https://github.com/bancodebogota/orchestrator.git</url>
 		<tag>HEAD</tag>
 	</scm>
 
