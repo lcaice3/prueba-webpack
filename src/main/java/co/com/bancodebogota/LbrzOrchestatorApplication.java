@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.web.client.RestTemplate;
 
-@ComponentScan({"co.com.bancodebogota.blacklist","co.com.bancodebogota.customers","co.com.bancodebogota.simulator"})
+
 @SpringBootApplication
 public class LbrzOrchestatorApplication {
 	
